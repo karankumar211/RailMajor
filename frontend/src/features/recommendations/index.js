@@ -1,0 +1,2 @@
+// Recommendations feature placeholder
+export {};

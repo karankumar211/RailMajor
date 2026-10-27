@@ -1,0 +1,248 @@
+/* RailOpt AI - Control Room Design Tokens & Global Styles */
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+/* Shared Design Constants across both themes */
+:root {
+  /* Typography: Headings use Lora, Body uses Roboto */
+  --font-heading: 'Lora', Georgia, serif;
+  --font-body: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-sans: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Layout & Geometry: Soft rounded edges */
+  --radius-sharp: 8px;
+  --radius-panel: 12px;
+  --radius-card: 12px;
+  --radius-pill: 24px;
+}
+
+/* =================================================================== */
+/* Light Mode (Crisp High-Precision Control Room Console)              */
+/* =================================================================== */
+:root,
+:root[data-theme="light"] {
+  --bg: #F8F9FA;
+  --panel: #FFFFFF;
+  --panel-hover: #F1F5F9;
+  --panel-active: #E2E8F0;
+  --text: #0F172A;
+  --text-muted: #475569;
+  --text-dim: #64748B;
+  --border: #CBD5E1;
+  --border-subtle: #E2E8F0;
+
+  /* Persistent Shell (Sidebar & Topbar Console) */
+  --shell-bg: #FFFFFF;
+  --shell-panel: #F8F9FA;
+  --shell-panel-hover: #F1F5F9;
+  --shell-border: #CBD5E1;
+  --shell-text: #0F172A;
+  --shell-text-muted: #475569;
+  --shell-text-dim: #64748B;
+
+  /* Functional Signal Meaning */
+  --amber: #D97706; /* Caution / Pending Recommendation */
+  --red: #DC2626;   /* Conflict / Hold */
+  --green: #16A34A; /* Cleared / Accepted / On-Time */
+  --blue: #2563EB;  /* Informational / Simulation Mode */
+
+  /* Text & Badge Color Accents */
+  --amber-text: #B45309;
+  --red-text: #B91C1C;
+  --green-text: #15803D;
+  --blue-text: #1D4ED8;
+
+  /* Component Overlays */
+  --subtle-bg: rgba(0, 0, 0, 0.03);
+  --chip-bg: rgba(0, 0, 0, 0.05);
+  --row-zebra: rgba(0, 0, 0, 0.02);
+  --skeleton-pulse-1: rgba(0, 0, 0, 0.04);
+  --skeleton-pulse-2: rgba(0, 0, 0, 0.09);
+
+  /* Track Schematic Diagram */
+  --track-line: #475569;
+  --track-grid: rgba(15, 23, 42, 0.12);
+}
+
+/* =================================================================== */
+/* Dark Mode (Modern Control Room Dark Gray / Soft Black)              */
+/* Specifications:                                                     */
+/* - Background: Dark Gray / Soft Black (#121418 / #16181D)           */
+/* - Primary Text: Off-White / Warm light neutral (#E4E4E7)            */
+/* - Accent Colors: Desaturated Tones (muted amber, coral, emerald)   */
+/* =================================================================== */
+:root[data-theme="dark"] {
+  --bg: #121418;
+  --panel: #1A1D24;
+  --panel-hover: #222630;
+  --panel-active: #2A2F3D;
+  --text: #E4E4E7;
+  --text-muted: #A1A1AA;
+  --text-dim: #71717A;
+  --border: #2E333D;
+  --border-subtle: #232731;
+
+  /* Persistent Shell (Sidebar & Topbar Console) */
+  --shell-bg: #16181D;
+  --shell-panel: #1C1F26;
+  --shell-panel-hover: #252932;
+  --shell-border: #2A2F38;
+  --shell-text: #E4E4E7;
+  --shell-text-muted: #A1A1AA;
+  --shell-text-dim: #71717A;
+
+  /* Functional Signal Meaning - Desaturated Tones */
+  --amber: #F59E0B; /* Desaturated amber */
+  --red: #EF4444;   /* Desaturated coral red */
+  --green: #10B981; /* Desaturated emerald green */
+  --blue: #3B82F6;  /* Pastel sky blue */
+
+  /* Text & Badge Color Accents for Dark Mode */
+  --amber-text: #FBBF24;
+  --red-text: #F87171;
+  --green-text: #34D399;
+  --blue-text: #60A5FA;
+
+  /* Component Overlays for Dark Mode */
+  --subtle-bg: rgba(255, 255, 255, 0.04);
+  --chip-bg: rgba(255, 255, 255, 0.07);
+  --row-zebra: rgba(255, 255, 255, 0.02);
+  --skeleton-pulse-1: rgba(255, 255, 255, 0.04);
+  --skeleton-pulse-2: rgba(255, 255, 255, 0.08);
+
+  /* Track Schematic Diagram */
+  --track-line: #64748B;
+  --track-grid: rgba(255, 255, 255, 0.08);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.45;
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* Global subtle transitions between theme switches */
+body, aside, header, .control-panel, input, select, button, .sidebar-nav-item {
+  transition: background-color 200ms ease, border-color 200ms ease, color 200ms ease;
+}
+
+h1, h2, h3, h4, h5, h6, .heading-font {
+  font-family: var(--font-heading);
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Form inputs & selects styled consistently */
+input, select, textarea {
+  color: var(--text);
+  background-color: var(--bg);
+  border: 1px solid var(--border);
+}
+input::placeholder, textarea::placeholder {
+  color: var(--text-dim);
+}
+
+/* Scrollbar styling - ops room minimal */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: var(--radius-sharp);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-dim);
+}
+
+/* Monospaced utility for telemetries */
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* Control Room Skeleton Pulse Animation */
+@keyframes controlRoomPulse {
+  0% {
+    opacity: 0.6;
+    background-color: var(--skeleton-pulse-1);
+  }
+  50% {
+    opacity: 1;
+    background-color: var(--skeleton-pulse-2);
+  }
+  100% {
+    opacity: 0.6;
+    background-color: var(--skeleton-pulse-1);
+  }
+}
+
+/* Responsive Laptop & Control Room Layout Rules */
+@media (max-width: 1100px) {
+  aside {
+    width: 210px !important;
+  }
+}
+
+@media (max-width: 900px) {
+  aside {
+    width: 72px !important;
+  }
+  aside .sidebar-full-label {
+    display: none !important;
+  }
+  aside .sidebar-header-text {
+    display: none !important;
+  }
+}
+
+/* Responsive grid for Control Room consoles */
+.ops-split-grid {
+  display: grid;
+  grid-template-columns: minmax(340px, 420px) 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 980px) {
+  .ops-split-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Dense control room table wrapper with horizontal scroll on small laptops */
+.ops-table-container {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.ops-table-container table {
+  min-width: 700px;
+}
+
+/* Sidebar Nav Item Hover */
+.sidebar-nav-item {
+  transition: all 150ms ease;
+}
+.sidebar-nav-item:hover:not(.active) {
+  background-color: var(--shell-panel-hover) !important;
+  color: var(--shell-text) !important;
+}

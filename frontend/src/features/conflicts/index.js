@@ -1,0 +1,2 @@
+// Conflicts feature placeholder
+export {};
