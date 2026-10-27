@@ -102,8 +102,8 @@ Before getting started, ensure you have the following installed on your machine:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/<your-username>/railopt-ai.git
-cd railopt-ai
+git clone https://github.com/karankumar211/RailMajor.git
+cd RailMajor
 ```
 
 ---
@@ -268,7 +268,7 @@ git add .
 git commit -m "feat: initial commit of RailOpt AI platform"
 
 # Link your remote GitHub repository
-git remote add origin https://github.com/<your-username>/railopt-ai.git
+git remote add origin https://github.com/karankumar211/RailMajor.git
 
 # Push code to GitHub
 git push -u origin main
