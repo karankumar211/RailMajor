@@ -24,7 +24,7 @@ def test_optimizer():
         assert rec1["rank"] == 1
         assert rec1["action_type"] in ["HOLD_AT_LOOP", "HOLD_BEFORE_BLOCK"]
         assert rec1["hold_minutes"] > 0
-        assert "Minimizes" in rec1["rationale"]
+        assert "minimiz" in rec1["rationale"].lower()
         assert len(rec1["projected_delay_delta_minutes"]) == 2
 
         print(f"[PASS] Single conflict resolution verified:")

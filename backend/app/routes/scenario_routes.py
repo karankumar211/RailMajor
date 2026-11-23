@@ -2,6 +2,7 @@
 Provides deterministic scenario reset, conflict detection, and batch optimization.
 """
 import uuid
+from typing import Optional
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from app.database.db import get_db
@@ -11,14 +12,14 @@ from app.data.synthetic_generator import generate_scenario
 from app.services.conflict_detection import detect_conflicts
 from app.services.optimizer import resolve_all_open_conflicts
 from app.sockets.ws_manager import ws_manager
-from app.auth.dependencies import get_current_user
+from app.auth.dependencies import get_current_user, get_optional_current_user
 
 router = APIRouter(prefix="/scenarios", tags=["Scenarios"])
 
 @router.post("", response_model=ScenarioResponse)
 async def create_or_reset_scenario(
     body: ScenarioRequest,
-    current_user: User = Depends(get_current_user),
+    current_user: Optional[User] = Depends(get_optional_current_user),
     db: Session = Depends(get_db),
 ):
     """Regenerates deterministic digital twin scenario, runs conflict detection,

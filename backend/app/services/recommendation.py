@@ -1,12 +1,12 @@
 """RailOpt AI - Recommendation & Decision Service
-Handles retrieval of generated dispatch recommendations and records immutable
-controller decisions (accept, override, modify).
+Handles retrieval of generated dispatch recommendations, records immutable
+controller decisions (accept, override, modify), and advances the digital twin telemetry.
 """
 import uuid
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import List, Optional, Dict, Any
 from sqlalchemy.orm import Session
-from app.database.models import Recommendation, ControllerDecision, Conflict
+from app.database.models import Recommendation, ControllerDecision, Conflict, TrainState, Schedule
 
 def get_recommendations_for_conflict(db: Session, conflict_id: str) -> List[Recommendation]:
     """Fetches all recommendations associated with a conflict ordered by rank."""
@@ -25,7 +25,9 @@ def record_controller_decision(
     override_action: Optional[str] = None
 ) -> ControllerDecision:
     """Records an immutable human controller decision (accept, override, modify).
-    Updates conflict status to RESOLVED (or OVERRIDDEN).
+    1. Persists the ControllerDecision record.
+    2. Updates conflict status to RESOLVED, OVERRIDDEN, or MODIFIED.
+    3. Physically propagates hold adjustments into TrainState and Schedule telemetry.
     """
     rec = db.query(Recommendation).filter(Recommendation.rec_id == rec_id).first()
     if not rec:
@@ -42,7 +44,7 @@ def record_controller_decision(
     )
     db.add(decision)
 
-    # Update parent conflict status
+    # 1. Update parent conflict status
     conflict = db.query(Conflict).filter(Conflict.conflict_id == rec.conflict_id).first()
     if conflict:
         if decision_type.lower() == "accept":
@@ -51,6 +53,45 @@ def record_controller_decision(
             conflict.status = "OVERRIDDEN"
         elif decision_type.lower() == "modify":
             conflict.status = "MODIFIED"
+
+    # 2. Advance Digital Twin state if an action with hold duration was applied
+    target_train_id = rec.target_train_id
+    hold_mins = rec.hold_minutes or 0
+
+    # If controller modified the duration, extract from override_action
+    if decision_type.lower() == "modify" and override_action:
+        try:
+            # Look for number in string like "Modified hold duration to 8 mins."
+            words = override_action.split()
+            for w in words:
+                if w.isdigit():
+                    hold_mins = int(w)
+                    break
+        except Exception:
+            pass
+
+    if target_train_id and hold_mins > 0 and decision_type.lower() in ("accept", "modify"):
+        # Update latest TrainState
+        latest_state = (
+            db.query(TrainState)
+            .filter(TrainState.train_id == target_train_id)
+            .order_by(TrainState.timestamp.desc())
+            .first()
+        )
+        if latest_state:
+            latest_state.delay_minutes += float(hold_mins)
+
+        # Shift downstream schedules
+        downstream_schedules = (
+            db.query(Schedule)
+            .filter(Schedule.train_id == target_train_id)
+            .all()
+        )
+        hold_delta = timedelta(minutes=hold_mins)
+        for sch in downstream_schedules:
+            if conflict and sch.planned_arrival >= conflict.window_start:
+                sch.planned_arrival += hold_delta
+                sch.planned_departure += hold_delta
 
     db.commit()
     db.refresh(decision)

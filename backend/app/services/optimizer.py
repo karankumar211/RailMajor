@@ -25,6 +25,14 @@ PRIORITY_CLASS_RANKING: Dict[str, int] = {
     "Freight": 1,
 }
 
+# Standard passenger load models for weighted passenger-minute delay impact
+ESTIMATED_PASSENGER_LOADS: Dict[str, int] = {
+    "Rajdhani": 1200,
+    "Express": 1500,
+    "Passenger": 850,
+    "Freight": 0,
+}
+
 
 def has_loop_line_available(db: Session, resource_id: str, held_train_id: str) -> bool:
     """Checks whether the held train can be held on a loop line:
@@ -133,18 +141,23 @@ def resolve_conflict(db: Session, conflict: Conflict) -> Dict[str, Any]:
     can_use_loop = has_loop_line_available(db, conflict.resource_id, held_train.train_id)
     action_type = "HOLD_AT_LOOP" if can_use_loop else "HOLD_BEFORE_BLOCK"
 
-    # 4. Generate plain-language rationale
+    # 4. Generate plain-language rationale with quantitative passenger-delay trade-offs
+    pax_proceed = ESTIMATED_PASSENGER_LOADS.get(proceeding_train.priority_class, 500)
+    pax_held = ESTIMATED_PASSENGER_LOADS.get(held_train.priority_class, 500)
+    pax_mins_saved = (pax_proceed - pax_held) * hold_minutes
+
     rationale = (
-        f"Minimizes weighted delay; {proceeding_train.name} ({proceeding_train.train_number}) "
-        f"is a higher-priority class ({proceeding_train.priority_class}) with a tighter downstream connection window."
+        f"Minimizes passenger-delay impact. Prioritizes {proceeding_train.name} ({proceeding_train.priority_class}) "
+        f"over {held_train.name} ({held_train.priority_class}) on {conflict.resource_id}, "
+        f"saving ~{max(0, pax_mins_saved)} weighted passenger-delay minutes."
     )
     if rank_a == rank_b:
         rationale = (
-            f"Minimizes cascading delay; {proceeding_train.name} ({proceeding_train.train_number}) "
-            f"is given precedence on {conflict.resource_id} over {held_train.name} ({held_train.train_number}) to preserve punctuality."
+            f"Preserves on-time corridor flow. {proceeding_train.name} ({proceeding_train.train_number}) "
+            f"has higher schedule adherence; holding {held_train.name} ({held_train.train_number}) minimizes cascading disruption."
         )
 
-    # 5. Projected delay deltas
+    # 5. Projected delay deltas (train_id -> delta_minutes)
     delay_deltas = {
         proceeding_train.train_id: 0,
         held_train.train_id: hold_minutes,
@@ -172,7 +185,7 @@ def resolve_conflict(db: Session, conflict: Conflict) -> Dict[str, Any]:
     alt_rationale = (
         f"Alternative: Hold {proceeding_train.name} ({proceeding_train.priority_class}) "
         f"allowing {held_train.name} ({held_train.priority_class}) to clear {conflict.resource_id}; "
-        f"incurs higher weighted passenger delay penalty."
+        f"incurs higher passenger delay penalty (+{pax_proceed * hold_minutes} pax-mins)."
     )
     rec_2_id = f"REC_{conflict.conflict_id}_2"
     recommendations_payload.append({

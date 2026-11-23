@@ -1,9 +1,9 @@
 """RailOpt AI - Section & Digital Twin Routes
 Endpoints for division state, active conflicts, what-if simulations, and decision audit logs.
 """
-from typing import List, Dict, Any
-from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy.orm import Session
+from typing import List, Dict, Any, Optional
+from fastapi import APIRouter, Depends, HTTPException, Query
+from sqlalchemy.orm import Session, joinedload
 from app.database.db import get_db
 from app.database.models import (
     Station,
@@ -121,21 +121,31 @@ def simulate_section_action(
 
 
 @router.get("/{section_id}/audit")
-def get_section_audit_log(section_id: str = "default", db: Session = Depends(get_db)):
-    """Returns ControllerDecision history joined with the recommendation/conflict it responded to."""
+def get_section_audit_log(
+    section_id: str = "default",
+    limit: int = Query(default=200, ge=1, le=1000),
+    offset: int = Query(default=0, ge=0),
+    db: Session = Depends(get_db),
+):
+    """Returns ControllerDecision history eagerly joined in a single SQL query without N+1 overhead."""
     decisions = (
         db.query(ControllerDecision)
+        .options(
+            joinedload(ControllerDecision.recommendation)
+            .joinedload(Recommendation.conflict)
+        )
         .order_by(ControllerDecision.timestamp.desc())
+        .offset(offset)
+        .limit(limit)
         .all()
     )
 
     audit_records = []
     for d in decisions:
-        rec = db.query(Recommendation).filter(Recommendation.rec_id == d.rec_id).first()
-        conflict = None
+        rec = d.recommendation
+        conflict = rec.conflict if rec else None
         rec_data = None
         if rec:
-            conflict = db.query(Conflict).filter(Conflict.conflict_id == rec.conflict_id).first()
             rec_data = {
                 "rec_id": rec.rec_id,
                 "action_type": rec.action_type,

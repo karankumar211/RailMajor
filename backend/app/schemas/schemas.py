@@ -28,6 +28,26 @@ class ScenarioResponse(BaseModel):
     stats: Dict[str, Any]
 
 # ==========================================
+# Audit & Analytics Schemas
+# ==========================================
+
+class AuditStatsResponse(BaseModel):
+    total_decisions: int
+    acceptance_rate: float
+    override_rate: float
+    modification_rate: float
+    avg_hold_minutes: float
+    compliance_score: float
+    controllers_active: int
+    breakdown: Dict[str, int]
+
+class SimulateActionCandidate(BaseModel):
+    action_type: str = Field(..., description="HOLD_AT_LOOP | HOLD_BEFORE_BLOCK | PROCEED")
+    target_train: str = Field(..., description="Target train ID")
+    hold_minutes: int = Field(default=0, ge=0)
+    label: Optional[str] = None
+
+# ==========================================
 # Authentication & User Schemas
 # ==========================================
 

@@ -14,6 +14,7 @@ from sqlalchemy import (
     ForeignKey,
     Text,
     JSON,
+    Index,
 )
 from sqlalchemy.orm import relationship
 from app.database.db import Base
@@ -132,6 +133,10 @@ class Train(Base):
 
 class Schedule(Base):
     __tablename__ = "schedules"
+    __table_args__ = (
+        Index("ix_schedules_resource_arrival", "resource_id", "planned_arrival"),
+        Index("ix_schedules_train_seq", "train_id", "sequence_order"),
+    )
 
     schedule_id = Column(String(64), primary_key=True, index=True)
     train_id = Column(String(64), ForeignKey("trains.train_id"), nullable=False, index=True)
@@ -151,6 +156,10 @@ class Schedule(Base):
 class TrainState(Base):
     """Dynamic twin telemetry snapshot for train position and delay."""
     __tablename__ = "train_states"
+    __table_args__ = (
+        Index("ix_train_states_train_time", "train_id", "timestamp"),
+        Index("ix_train_states_resource", "current_resource_id"),
+    )
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     train_id = Column(String(64), ForeignKey("trains.train_id"), nullable=False, index=True)
@@ -173,6 +182,10 @@ class TrainState(Base):
 
 class Conflict(Base):
     __tablename__ = "conflicts"
+    __table_args__ = (
+        Index("ix_conflicts_resource_status", "resource_id", "status"),
+        Index("ix_conflicts_status_window", "status", "window_start"),
+    )
 
     conflict_id = Column(String(64), primary_key=True, index=True)
     resource_id = Column(String(64), nullable=False, index=True)
@@ -215,6 +228,10 @@ class Recommendation(Base):
 class ControllerDecision(Base):
     """Immutable audit record of a human controller's response to an AI recommendation."""
     __tablename__ = "controller_decisions"
+    __table_args__ = (
+        Index("ix_decisions_controller_time", "controller_id", "timestamp"),
+        Index("ix_decisions_type_time", "decision_type", "timestamp"),
+    )
 
     decision_id = Column(String(64), primary_key=True, index=True)
     rec_id = Column(String(64), ForeignKey("recommendations.rec_id"), nullable=False, index=True)
