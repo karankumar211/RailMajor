@@ -85,11 +85,11 @@ export default function AuditPage() {
   const getDecisionBadge = (decisionType) => {
     switch (decisionType) {
       case 'ACCEPT':
-        return <Badge variant="green" dot>ACCEPT</Badge>;
+        return <Badge variant="green" dot>Accept</Badge>;
       case 'OVERRIDE':
-        return <Badge variant="red" dot>OVERRIDE</Badge>;
+        return <Badge variant="red" dot>Override</Badge>;
       case 'MODIFY':
-        return <Badge variant="amber" dot>MODIFY</Badge>;
+        return <Badge variant="amber" dot>Modify</Badge>;
       default:
         return <Badge variant="neutral">{decisionType}</Badge>;
     }
@@ -147,17 +147,16 @@ export default function AuditPage() {
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <h1
             style={{
-              fontSize: '1rem',
+              fontSize: '0.96rem',
               fontFamily: 'var(--font-heading)',
-              fontWeight: 700,
-              letterSpacing: '0.04em',
+              fontWeight: 600,
               color: 'var(--text)',
             }}
           >
-            DISPATCH AUDIT LOG
+            Dispatch audit log
           </h1>
-          <Badge variant="green">
-            IMMUTABLE
+          <Badge variant="green" size="sm" dot>
+            Immutable
           </Badge>
         </div>
 

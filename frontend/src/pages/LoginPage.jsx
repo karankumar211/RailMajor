@@ -60,40 +60,38 @@ export default function LoginPage() {
 
       <div style={{ width: '100%', maxWidth: '440px' }}>
         {/* Terminal Header */}
-        <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+        <div style={{ textAlign: 'center', marginBottom: '24px' }}>
           <h1
             style={{
               fontFamily: 'var(--font-heading)',
-              fontSize: '1.5rem',
-              fontWeight: 700,
-              letterSpacing: '0.04em',
+              fontSize: '1.4rem',
+              fontWeight: 600,
+              letterSpacing: '-0.01em',
               color: 'var(--text)',
             }}
           >
-            RAILOPT AI
+            RailOpt AI
           </h1>
           <p
             style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: '0.72rem',
+              fontFamily: 'var(--font-sans)',
+              fontSize: '0.8rem',
               color: 'var(--text-muted)',
-              letterSpacing: '0.04em',
               marginTop: '4px',
             }}
           >
-            DISPATCH CONTROLLER ACCESS
+            Dispatch controller access
           </p>
         </div>
 
         {/* Login Panel */}
         <Panel
-          title="OPERATOR SIGN IN"
+          title="Operator sign in"
           action={
-            <Badge variant="amber" size="sm">
-              NCR DIVISION
+            <Badge variant="amber" size="sm" dot>
+              NCR Division
             </Badge>
           }
-          style={{ borderTop: '3px solid var(--amber)' }}
         >
           {errorMessage && (
             <div

@@ -1,118 +1,123 @@
-/* RailOpt AI - Control Room Design Tokens & Global Styles */
-@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+/* RailOpt AI - Control Room Design Tokens (Unslopped - Ink Ramp) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
-/* Shared Design Constants across both themes */
 :root {
-  /* Typography: Headings use Lora, Body uses Roboto */
-  --font-heading: 'Lora', Georgia, serif;
-  --font-body: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-sans: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  /* Typography: Precise, calm, instrument-grade */
+  --font-heading: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
 
-  /* Layout & Geometry: Soft rounded edges */
-  --radius-sharp: 8px;
-  --radius-panel: 12px;
-  --radius-card: 12px;
-  --radius-pill: 24px;
+  /* Nested Radii System (outer - padding >= inner) */
+  --radius-sharp: 4px;
+  --radius-control: 6px;
+  --radius-card: 8px;
+  --radius-panel: 10px;
+  --radius-pill: 9999px;
 }
 
 /* =================================================================== */
-/* Light Mode (Crisp High-Precision Control Room Console)              */
+/* Light Mode (Crisp Precision Technical White)                        */
 /* =================================================================== */
 :root,
 :root[data-theme="light"] {
-  --bg: #F8F9FA;
+  --bg: #F5F7FA;
   --panel: #FFFFFF;
-  --panel-hover: #F1F5F9;
-  --panel-active: #E2E8F0;
-  --text: #0F172A;
-  --text-muted: #475569;
-  --text-dim: #64748B;
-  --border: #CBD5E1;
-  --border-subtle: #E2E8F0;
+  --panel-hover: #ECEFF4;
+  --panel-active: #E2E6EE;
+  --text: #111827;
+  --text-muted: #4B5565;
+  --text-dim: #6B7487;
+  --border: #D8DFE8;
+  --border-subtle: #E8EDF4;
 
-  /* Persistent Shell (Sidebar & Topbar Console) */
+  /* Persistent Shell */
   --shell-bg: #FFFFFF;
-  --shell-panel: #F8F9FA;
-  --shell-panel-hover: #F1F5F9;
-  --shell-border: #CBD5E1;
-  --shell-text: #0F172A;
-  --shell-text-muted: #475569;
-  --shell-text-dim: #64748B;
+  --shell-panel: #F5F7FA;
+  --shell-panel-hover: #ECEFF4;
+  --shell-border: #D8DFE8;
+  --shell-text: #111827;
+  --shell-text-muted: #4B5565;
+  --shell-text-dim: #6B7487;
 
-  /* Functional Signal Meaning */
-  --amber: #D97706; /* Caution / Pending Recommendation */
-  --red: #DC2626;   /* Conflict / Hold */
-  --green: #16A34A; /* Cleared / Accepted / On-Time */
-  --blue: #2563EB;  /* Informational / Simulation Mode */
+  /* Railway Signal Semantics */
+  --amber: #D97706;
+  --red: #DC2626;
+  --green: #16A34A;
+  --blue: #2563EB;
+  --slate: #475569;
 
-  /* Text & Badge Color Accents */
   --amber-text: #B45309;
   --red-text: #B91C1C;
   --green-text: #15803D;
   --blue-text: #1D4ED8;
 
-  /* Component Overlays */
-  --subtle-bg: rgba(0, 0, 0, 0.03);
-  --chip-bg: rgba(0, 0, 0, 0.05);
-  --row-zebra: rgba(0, 0, 0, 0.02);
-  --skeleton-pulse-1: rgba(0, 0, 0, 0.04);
-  --skeleton-pulse-2: rgba(0, 0, 0, 0.09);
+  /* Subtle Overlays */
+  --subtle-bg: rgba(17, 24, 39, 0.03);
+  --chip-bg: rgba(17, 24, 39, 0.05);
+  --row-zebra: rgba(17, 24, 39, 0.015);
+  --skeleton-pulse-1: rgba(17, 24, 39, 0.04);
+  --skeleton-pulse-2: rgba(17, 24, 39, 0.08);
 
   /* Track Schematic Diagram */
   --track-line: #475569;
-  --track-grid: rgba(15, 23, 42, 0.12);
+  --track-grid: rgba(17, 24, 39, 0.08);
 }
 
 /* =================================================================== */
-/* Dark Mode (Modern Control Room Dark Gray / Soft Black)              */
-/* Specifications:                                                     */
-/* - Background: Dark Gray / Soft Black (#121418 / #16181D)           */
-/* - Primary Text: Off-White / Warm light neutral (#E4E4E7)            */
-/* - Accent Colors: Desaturated Tones (muted amber, coral, emerald)   */
+/* Dark Mode: The "Ink" Ramp (Deep Nocturne Control Room Console)       */
+/* Sourced strictly from unslop tokens.md:                             */
+/* - Deepest (sidebar): #07080D                                        */
+/* - Page Background:   #0B0D14                                        */
+/* - Card / Panel:      #11141C                                        */
+/* - Raised / Active:   #1A1E28                                        */
+/* - Hairline:          rgba(238, 240, 245, 0.08)                      */
+/* - Primary Text:      #EEF0F5                                        */
+/* - Secondary Text:    #A3A9B8                                        */
+/* - Muted Text:        #7A8296                                        */
 /* =================================================================== */
 :root[data-theme="dark"] {
-  --bg: #121418;
-  --panel: #1A1D24;
-  --panel-hover: #222630;
-  --panel-active: #2A2F3D;
-  --text: #E4E4E7;
-  --text-muted: #A1A1AA;
-  --text-dim: #71717A;
-  --border: #2E333D;
-  --border-subtle: #232731;
+  --bg: #0B0D14;
+  --panel: #11141C;
+  --panel-hover: #161A24;
+  --panel-active: #1A1E28;
+  --text: #EEF0F5;
+  --text-muted: #A3A9B8;
+  --text-dim: #7A8296;
+  --border: rgba(238, 240, 245, 0.08);
+  --border-subtle: rgba(238, 240, 245, 0.04);
 
-  /* Persistent Shell (Sidebar & Topbar Console) */
-  --shell-bg: #16181D;
-  --shell-panel: #1C1F26;
-  --shell-panel-hover: #252932;
-  --shell-border: #2A2F38;
-  --shell-text: #E4E4E7;
-  --shell-text-muted: #A1A1AA;
-  --shell-text-dim: #71717A;
+  /* Persistent Shell */
+  --shell-bg: #07080D;
+  --shell-panel: #0E1118;
+  --shell-panel-hover: #141722;
+  --shell-border: rgba(238, 240, 245, 0.08);
+  --shell-text: #EEF0F5;
+  --shell-text-muted: #A3A9B8;
+  --shell-text-dim: #7A8296;
 
-  /* Functional Signal Meaning - Desaturated Tones */
-  --amber: #F59E0B; /* Desaturated amber */
-  --red: #EF4444;   /* Desaturated coral red */
-  --green: #10B981; /* Desaturated emerald green */
-  --blue: #3B82F6;  /* Pastel sky blue */
+  /* Railway Signal Semantics (Toned, readable against deep ink) */
+  --amber: #F59E0B;
+  --red: #EF4444;
+  --green: #10B981;
+  --blue: #38BDF8;
+  --slate: #94A3B8;
 
-  /* Text & Badge Color Accents for Dark Mode */
   --amber-text: #FBBF24;
   --red-text: #F87171;
   --green-text: #34D399;
-  --blue-text: #60A5FA;
+  --blue-text: #7DD3FC;
 
-  /* Component Overlays for Dark Mode */
-  --subtle-bg: rgba(255, 255, 255, 0.04);
-  --chip-bg: rgba(255, 255, 255, 0.07);
-  --row-zebra: rgba(255, 255, 255, 0.02);
-  --skeleton-pulse-1: rgba(255, 255, 255, 0.04);
-  --skeleton-pulse-2: rgba(255, 255, 255, 0.08);
+  /* Subtle Overlays */
+  --subtle-bg: rgba(255, 255, 255, 0.025);
+  --chip-bg: rgba(255, 255, 255, 0.05);
+  --row-zebra: rgba(255, 255, 255, 0.015);
+  --skeleton-pulse-1: rgba(255, 255, 255, 0.03);
+  --skeleton-pulse-2: rgba(255, 255, 255, 0.06);
 
   /* Track Schematic Diagram */
-  --track-line: #64748B;
-  --track-grid: rgba(255, 255, 255, 0.08);
+  --track-line: #333D52;
+  --track-grid: rgba(255, 255, 255, 0.04);
 }
 
 *, *::before, *::after {
@@ -125,58 +130,43 @@ html, body {
   background-color: var(--bg);
   color: var(--text);
   font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.45;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  line-height: 1.45;
   height: 100%;
   width: 100%;
-  overflow-x: hidden;
-}
-
-/* Global subtle transitions between theme switches */
-body, aside, header, .control-panel, input, select, button, .sidebar-nav-item {
-  transition: background-color 200ms ease, border-color 200ms ease, color 200ms ease;
-}
-
-h1, h2, h3, h4, h5, h6, .heading-font {
-  font-family: var(--font-heading);
+  overflow: hidden;
 }
 
 #root {
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
 }
 
-/* Form inputs & selects styled consistently */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+
+/* Form inputs & selects styled consistently on the 4px grid */
 input, select, textarea {
   color: var(--text);
   background-color: var(--bg);
   border: 1px solid var(--border);
+  font-family: var(--font-body);
+  font-size: 13px;
 }
 input::placeholder, textarea::placeholder {
   color: var(--text-dim);
 }
 
-/* Scrollbar styling - ops room minimal */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-::-webkit-scrollbar-track {
-  background: var(--bg);
-}
-::-webkit-scrollbar-thumb {
-  background: var(--border);
-  border-radius: var(--radius-sharp);
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--text-dim);
-}
-
 /* Monospaced utility for telemetries */
 .font-mono {
   font-family: var(--font-mono);
+  font-feature-settings: 'tnum';
 }
 
 /* Control Room Skeleton Pulse Animation */
@@ -195,25 +185,6 @@ input::placeholder, textarea::placeholder {
   }
 }
 
-/* Responsive Laptop & Control Room Layout Rules */
-@media (max-width: 1100px) {
-  aside {
-    width: 210px !important;
-  }
-}
-
-@media (max-width: 900px) {
-  aside {
-    width: 72px !important;
-  }
-  aside .sidebar-full-label {
-    display: none !important;
-  }
-  aside .sidebar-header-text {
-    display: none !important;
-  }
-}
-
 /* Responsive grid for Control Room consoles */
 .ops-split-grid {
   display: grid;
@@ -227,7 +198,7 @@ input::placeholder, textarea::placeholder {
   }
 }
 
-/* Dense control room table wrapper with horizontal scroll on small laptops */
+/* Dense control room table wrapper with horizontal scroll */
 .ops-table-container {
   width: 100%;
   overflow-x: auto;
@@ -238,9 +209,9 @@ input::placeholder, textarea::placeholder {
   min-width: 700px;
 }
 
-/* Sidebar Nav Item Hover */
+/* Targeted transitions (No transition: all) */
 .sidebar-nav-item {
-  transition: all 150ms ease;
+  transition: background-color 150ms ease, color 150ms ease;
 }
 .sidebar-nav-item:hover:not(.active) {
   background-color: var(--shell-panel-hover) !important;

@@ -1,8 +1,8 @@
 import React from 'react';
 
 /**
- * Control Room Base Panel Component
- * Dense surface (#12161C), 1px structural border (#2A2F38), sharp 2-4px radius, no drop shadows.
+ * Control Room Base Panel Component (Unslopped)
+ * Quiet neutral surface, 1px structural hairline, calm typography without uppercase shouting.
  */
 export function Panel({
   title,
@@ -32,7 +32,7 @@ export function Panel({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            padding: '10px 14px',
+            padding: '10px 16px',
             borderBottom: '1px solid var(--border)',
             backgroundColor: 'var(--subtle-bg)',
           }}
@@ -41,12 +41,11 @@ export function Panel({
             {title && (
               <h2
                 style={{
-                  fontSize: '0.82rem',
+                  fontSize: '0.84rem',
                   fontFamily: 'var(--font-heading)',
-                  fontWeight: 600,
-                  letterSpacing: '0.04em',
-                  textTransform: 'uppercase',
+                  fontWeight: 500,
                   color: 'var(--text)',
+                  margin: 0,
                 }}
               >
                 {title}
@@ -55,9 +54,10 @@ export function Panel({
             {subtitle && (
               <p
                 style={{
-                  fontSize: '0.7rem',
+                  fontSize: '0.72rem',
                   color: 'var(--text-muted)',
                   marginTop: '2px',
+                  margin: 0,
                 }}
               >
                 {subtitle}
@@ -67,7 +67,7 @@ export function Panel({
           {action && <div>{action}</div>}
         </div>
       )}
-      <div style={{ padding: '14px', flex: 1, ...bodyStyle }}>
+      <div style={{ padding: '16px', flex: 1, ...bodyStyle }}>
         {children}
       </div>
     </div>

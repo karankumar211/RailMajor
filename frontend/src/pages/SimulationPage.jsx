@@ -143,12 +143,12 @@ export default function SimulationPage() {
   return (
     <div style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
       {/* ========================================================= */}
-      {/* Top Banner: Informational Exploratory Mode (Cool Blue)    */}
+      {/* Top Banner: Informational Exploratory Mode                */}
       {/* ========================================================= */}
       <div
         style={{
-          backgroundColor: 'rgba(79, 163, 227, 0.08)',
-          border: '1px solid var(--blue)',
+          backgroundColor: 'var(--panel)',
+          border: '1px solid var(--border)',
           borderRadius: 'var(--radius-panel)',
           padding: '12px 16px',
           display: 'flex',
@@ -161,17 +161,16 @@ export default function SimulationPage() {
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <h1
             style={{
-              fontSize: '1rem',
+              fontSize: '0.96rem',
               fontFamily: 'var(--font-heading)',
-              fontWeight: 700,
-              letterSpacing: '0.04em',
+              fontWeight: 600,
               color: 'var(--text)',
             }}
           >
-            WHAT-IF SIMULATION
+            What-if simulation
           </h1>
-          <Badge variant="blue">
-            EXPLORATORY
+          <Badge variant="blue" size="sm" dot>
+            Exploratory
           </Badge>
         </div>
 
@@ -183,7 +182,7 @@ export default function SimulationPage() {
             disabled={isFetchingWeather}
             icon={<CloudRain size={13} color="var(--blue)" />}
           >
-            {isFetchingWeather ? 'QUERYING OPEN-METEO...' : 'FETCH LIVE WEATHER (OPEN-METEO)'}
+            {isFetchingWeather ? 'Querying weather...' : 'Fetch weather'}
           </Button>
         </div>
       </div>
@@ -202,7 +201,7 @@ export default function SimulationPage() {
         {/* ------------------------------------------------------- */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
           {/* Target Conflict Selector */}
-          <Panel title="1. TARGET CONFLICT PICKER" subtitle="Choose active conflict to explore resolution outcomes">
+          <Panel title="Target conflict" subtitle="Choose active conflict to explore resolution outcomes">
             {isConflictsLoading ? (
               <div style={{ padding: '8px 0' }}>
                 <Skeleton height="36px" width="100%" />

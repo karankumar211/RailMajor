@@ -161,26 +161,25 @@ export default function ConflictsPage() {
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <h1
             style={{
-              fontSize: '1rem',
+              fontSize: '0.96rem',
               fontFamily: 'var(--font-heading)',
-              fontWeight: 700,
-              letterSpacing: '0.04em',
+              fontWeight: 600,
               color: 'var(--text)',
             }}
           >
-            CONFLICTS & DISPATCH ADVISORY
+            Conflicts & dispatch advisory
           </h1>
-          <Badge variant="amber">
-            AI ADVISORY
+          <Badge variant="amber" size="sm" dot>
+            Advisory
           </Badge>
         </div>
 
         <div style={{ display: 'flex', gap: '8px' }}>
-          <Badge variant="red" size="md">
-            {conflicts.length} OPEN CONFLICTS
+          <Badge variant="red" size="md" dot>
+            {conflicts.length} open
           </Badge>
-          <Badge variant="green" size="md">
-            {Object.keys(resolvedDecisionsMap).length} RESOLVED THIS SESSION
+          <Badge variant="green" size="md" dot>
+            {Object.keys(resolvedDecisionsMap).length} resolved
           </Badge>
         </div>
       </div>
@@ -199,7 +198,7 @@ export default function ConflictsPage() {
         {/* Left Column: Active Conflict Queue                      */}
         {/* ------------------------------------------------------- */}
         <Panel
-          title="ACTIVE CONFLICT QUEUE"
+          title="Active conflicts"
           subtitle={`${filteredConflicts.length} pending resource conflicts requiring dispatcher resolution`}
           action={
             <div style={{ display: 'flex', gap: '6px' }}>
@@ -211,17 +210,17 @@ export default function ConflictsPage() {
                   backgroundColor: 'var(--bg)',
                   border: '1px solid var(--border)',
                   color: 'var(--text)',
-                  fontSize: '0.68rem',
-                  fontFamily: 'var(--font-mono)',
-                  padding: '3px 6px',
-                  borderRadius: 'var(--radius-sharp)',
+                  fontSize: '0.72rem',
+                  fontFamily: 'var(--font-sans)',
+                  padding: '3px 8px',
+                  borderRadius: 'var(--radius-control)',
                   outline: 'none',
                 }}
               >
-                <option value="ALL">ALL TYPES</option>
-                <option value="block">BLOCK</option>
-                <option value="platform">PLATFORM</option>
-                <option value="junction">JUNCTION</option>
+                <option value="ALL">All types</option>
+                <option value="block">Block</option>
+                <option value="platform">Platform</option>
+                <option value="junction">Junction</option>
               </select>
             </div>
           }

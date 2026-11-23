@@ -63,19 +63,19 @@ export function RecommendationCard({
     <div ref={cardRef} style={{ marginBottom: '16px' }}>
       <Panel
         style={{
-          borderLeft: isRank1 ? '3px solid var(--amber)' : '3px solid var(--blue)',
-          backgroundColor: isResolved ? 'rgba(61, 214, 140, 0.05)' : 'var(--panel)',
+          borderLeft: isRank1 ? '2px solid var(--amber)' : '2px solid var(--border)',
+          backgroundColor: isResolved ? 'rgba(22, 163, 74, 0.04)' : 'var(--panel)',
           borderColor: isResolved ? 'var(--green)' : 'var(--border)',
         }}
-        title={`RANK #${rec.rank}: ${isRank1 ? 'RECOMMENDED ACTION' : 'ALTERNATIVE OPTION'}`}
+        title={`Rank #${rec.rank}: ${isRank1 ? 'Recommended action' : 'Alternative option'}`}
         action={
           <div style={{ display: 'flex', gap: '6px' }}>
-            <Badge variant={isRank1 ? 'amber' : 'blue'}>
-              {rec.action_type.replace(/_/g, ' ')}
+            <Badge variant={isRank1 ? 'amber' : 'blue'} size="sm" dot>
+              {rec.action_type.replace(/_/g, ' ').toLowerCase()}
             </Badge>
             {isResolved && (
-              <Badge variant="green">
-                {recordedDecision?.decision_type || 'RESOLVED'}
+              <Badge variant="green" size="sm" dot>
+                {recordedDecision?.decision_type?.toLowerCase() || 'resolved'}
               </Badge>
             )}
           </div>
@@ -84,17 +84,17 @@ export function RecommendationCard({
         {/* Target Train & Action Headline */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
           <div>
-            <span style={{ fontSize: '0.72rem', fontFamily: 'var(--font-mono)', color: 'var(--text-muted)' }}>
-              ACTION TARGET:
+            <span style={{ fontSize: '0.74rem', fontFamily: 'var(--font-sans)', color: 'var(--text-muted)' }}>
+              Target:
             </span>{' '}
-            <strong style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', color: 'var(--text)' }}>
+            <strong style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', color: 'var(--text)', fontWeight: 600 }}>
               {targetTrain.priority_class} {targetTrain.train_number}
             </strong>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontFamily: 'var(--font-mono)', fontSize: '0.8rem' }}>
             <Clock size={13} color="var(--amber)" />
-            <span style={{ color: 'var(--amber)', fontWeight: 700 }}>
-              {rec.hold_minutes} MINS HOLD
+            <span style={{ color: 'var(--amber)', fontWeight: 600 }}>
+              {rec.hold_minutes} min hold
             </span>
           </div>
         </div>

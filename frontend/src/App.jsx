@@ -58,10 +58,10 @@ function ControlRoomShell() {
   };
 
   const navItems = [
-    { to: '/', label: 'LIVE TWIN', icon: Activity },
-    { to: '/conflicts', label: 'CONFLICTS & DISPATCH', icon: AlertTriangle },
-    { to: '/simulation', label: 'WHAT-IF SIMULATION', icon: Sliders },
-    { to: '/audit', label: 'AUDIT LOG', icon: ClipboardList },
+    { to: '/', label: 'Live twin', icon: Activity },
+    { to: '/conflicts', label: 'Conflicts & dispatch', icon: AlertTriangle },
+    { to: '/simulation', label: 'What-if simulation', icon: Sliders },
+    { to: '/audit', label: 'Audit log', icon: ClipboardList },
   ];
 
   return (
@@ -94,22 +94,22 @@ function ControlRoomShell() {
               style={{
                 fontFamily: 'var(--font-heading)',
                 fontSize: '0.92rem',
-                fontWeight: 700,
-                letterSpacing: '0.06em',
+                fontWeight: 600,
+                letterSpacing: '-0.01em',
                 color: 'var(--shell-text)',
               }}
             >
-              RAILOPT AI
+              RailOpt AI
             </h1>
             <p
               style={{
                 fontFamily: 'var(--font-mono)',
-                fontSize: '0.65rem',
+                fontSize: '0.68rem',
                 color: 'var(--shell-text-muted)',
-                letterSpacing: '0.04em',
+                marginTop: '2px',
               }}
             >
-              DISPATCH CONTROL ROOM
+              Dispatch control room
             </p>
           </div>
         </div>
@@ -210,24 +210,24 @@ function ControlRoomShell() {
                 style={({ isActive }) => ({
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '12px',
-                  padding: '10px 12px',
+                  gap: '10px',
+                  padding: '8px 12px',
                   textDecoration: 'none',
-                  borderRadius: 'var(--radius-panel)',
-                  border: isActive ? '1px solid rgba(217, 119, 6, 0.4)' : '1px solid transparent',
-                  backgroundColor: isActive ? 'rgba(217, 119, 6, 0.10)' : 'transparent',
-                  color: isActive ? 'var(--amber-text)' : 'var(--shell-text)',
-                  transition: 'all 150ms ease',
+                  borderRadius: 'var(--radius-control)',
+                  border: isActive ? '1px solid var(--border)' : '1px solid transparent',
+                  borderLeft: isActive ? '2px solid var(--amber)' : '2px solid transparent',
+                  backgroundColor: isActive ? 'var(--panel-active)' : 'transparent',
+                  color: isActive ? 'var(--shell-text)' : 'var(--shell-text-muted)',
+                  transition: 'background-color 150ms ease, color 150ms ease, border-color 150ms ease',
                 })}
               >
-                <Icon size={16} />
+                <Icon size={15} />
                 <span
                   className="sidebar-full-label"
                   style={{
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '0.75rem',
-                    fontWeight: 600,
-                    letterSpacing: '0.04em',
+                    fontFamily: 'var(--font-sans)',
+                    fontSize: '0.8rem',
+                    fontWeight: 500,
                   }}
                 >
                   {item.label}
@@ -240,7 +240,7 @@ function ControlRoomShell() {
         {/* Bottom Sidebar Telemetry & Actions */}
         <div
           style={{
-            padding: '14px 16px',
+            padding: '12px 16px',
             borderTop: '1px solid var(--shell-border)',
             backgroundColor: 'var(--shell-panel)',
             display: 'flex',
@@ -251,20 +251,20 @@ function ControlRoomShell() {
           {/* WebSocket Status */}
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <Radio size={14} color={isConnected ? 'var(--green)' : 'var(--amber)'} />
+              <Radio size={13} color={isConnected ? 'var(--green)' : 'var(--amber)'} />
               <span
                 className="sidebar-full-label"
                 style={{
                   fontFamily: 'var(--font-mono)',
-                  fontSize: '0.68rem',
+                  fontSize: '0.7rem',
                   color: isConnected ? 'var(--green)' : 'var(--amber)',
                 }}
               >
-                {isConnected ? 'LIVE FEED' : 'RECONNECTING'}
+                {isConnected ? 'Live feed' : 'Reconnecting'}
               </span>
             </div>
-            <Badge variant={isConnected ? 'green' : 'amber'} size="sm">
-              {isConnected ? 'SYNCED' : 'OFFLINE'}
+            <Badge variant={isConnected ? 'green' : 'amber'} size="sm" dot>
+              {isConnected ? 'Synced' : 'Offline'}
             </Badge>
           </div>
 
@@ -278,7 +278,7 @@ function ControlRoomShell() {
             style={{ width: '100%' }}
           >
             <span className="sidebar-full-label">
-              {isResetting ? 'RESETTING...' : resetSuccess ? 'RESET OK' : 'RESET DEMO TWIN'}
+              {isResetting ? 'Resetting...' : resetSuccess ? 'Reset OK' : 'Reset demo scenario'}
             </span>
           </Button>
         </div>
@@ -305,13 +305,13 @@ function ControlRoomShell() {
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             <span
               style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.75rem',
+                fontFamily: 'var(--font-sans)',
+                fontSize: '0.8rem',
                 color: 'var(--shell-text)',
-                fontWeight: 600,
+                fontWeight: 500,
               }}
             >
-              DELHI - KANPUR MAINLINE CORRIDOR
+              Delhi – Kanpur Mainline Corridor
             </span>
           </div>
 
@@ -322,16 +322,17 @@ function ControlRoomShell() {
             <span
               style={{
                 fontFamily: 'var(--font-mono)',
-                fontSize: '0.8rem',
-                fontWeight: 600,
+                fontSize: '0.78rem',
+                fontWeight: 500,
                 color: 'var(--shell-text)',
                 backgroundColor: 'var(--shell-panel)',
-                padding: '2px 8px',
-                borderRadius: 'var(--radius-sharp)',
+                padding: '3px 8px',
+                borderRadius: 'var(--radius-control)',
                 border: '1px solid var(--shell-border)',
+                fontFeatureSettings: 'tnum',
               }}
             >
-              OPS TIME: {currentTime}
+              Ops time: {currentTime}
             </span>
           </div>
         </header>

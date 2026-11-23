@@ -145,32 +145,32 @@ export default function DashboardPage() {
         }}
       >
         {/* Total Fleet */}
-        <Panel bodyStyle={{ padding: '12px 14px' }}>
+        <Panel bodyStyle={{ padding: '12px 16px' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.68rem', color: 'var(--text-muted)' }}>
-              DIVISION FLEET
+            <span style={{ fontFamily: 'var(--font-sans)', fontSize: '0.74rem', color: 'var(--text-muted)' }}>
+              Division fleet
             </span>
             <TrainIcon size={14} color="var(--text-muted)" />
           </div>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginTop: '6px' }}>
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '1.4rem', fontWeight: 700, color: 'var(--text)' }}>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '1.4rem', fontWeight: 600, color: 'var(--text)' }}>
               {totalTrains}
             </span>
-            <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }}>ACTIVE UNITS</span>
+            <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }}>active units</span>
           </div>
           <div style={{ display: 'flex', gap: '6px', marginTop: '8px' }}>
-            <Badge size="sm" variant="green">{onTimeTrains.length} ON TIME</Badge>
+            <Badge size="sm" variant="green" dot>{onTimeTrains.length} on time</Badge>
             <Badge size="sm" variant={delayedTrains.length > 0 ? 'amber' : 'neutral'}>
-              {delayedTrains.length} DELAYED
+              {delayedTrains.length} delayed
             </Badge>
           </div>
         </Panel>
 
         {/* Active Resource Conflicts */}
-        <Panel bodyStyle={{ padding: '12px 14px' }}>
+        <Panel bodyStyle={{ padding: '12px 16px' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.68rem', color: 'var(--text-muted)' }}>
-              ACTIVE CONFLICTS
+            <span style={{ fontFamily: 'var(--font-sans)', fontSize: '0.74rem', color: 'var(--text-muted)' }}>
+              Active conflicts
             </span>
             <AlertTriangle size={14} color={conflictCount > 0 ? 'var(--red)' : 'var(--green)'} />
           </div>
@@ -179,58 +179,58 @@ export default function DashboardPage() {
               style={{
                 fontFamily: 'var(--font-mono)',
                 fontSize: '1.4rem',
-                fontWeight: 700,
+                fontWeight: 600,
                 color: conflictCount > 0 ? 'var(--red)' : 'var(--green)',
               }}
             >
               {conflictCount}
             </span>
-            <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }}>DETECTED OVERLAPS</span>
+            <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }}>detected</span>
           </div>
           <div style={{ marginTop: '8px' }}>
             <Badge size="sm" variant={conflictCount > 0 ? 'red' : 'green'} dot>
-              {conflictCount > 0 ? 'INTERVENTIONS REQUIRED' : 'TRACKWAYS NOMINAL'}
+              {conflictCount > 0 ? 'Action required' : 'Clear'}
             </Badge>
           </div>
         </Panel>
 
         {/* Average Delay */}
-        <Panel bodyStyle={{ padding: '12px 14px' }}>
+        <Panel bodyStyle={{ padding: '12px 16px' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.68rem', color: 'var(--text-muted)' }}>
-              AVG DIVISION DELAY
+            <span style={{ fontFamily: 'var(--font-sans)', fontSize: '0.74rem', color: 'var(--text-muted)' }}>
+              Avg division delay
             </span>
             <Clock size={14} color="var(--text-muted)" />
           </div>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginTop: '6px' }}>
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '1.4rem', fontWeight: 700, color: 'var(--amber)' }}>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '1.4rem', fontWeight: 600, color: 'var(--amber)' }}>
               +{avgDelayMinutes}m
             </span>
-            <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }}>PER TRAIN</span>
+            <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }}>per train</span>
           </div>
           <div style={{ marginTop: '8px' }}>
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.68rem', color: 'var(--text-muted)' }}>
-              MAX DELAY: +{Math.max(0, ...trains.map((t) => t.delay_minutes || 0)).toFixed(0)}m (FREIGHT/EXP)
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--text-muted)' }}>
+              Max delay: +{Math.max(0, ...trains.map((t) => t.delay_minutes || 0)).toFixed(0)}m
             </span>
           </div>
         </Panel>
 
         {/* Punctuality Status */}
-        <Panel bodyStyle={{ padding: '12px 14px' }}>
+        <Panel bodyStyle={{ padding: '12px 16px' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.68rem', color: 'var(--text-muted)' }}>
-              PUNCTUALITY RATE
+            <span style={{ fontFamily: 'var(--font-sans)', fontSize: '0.74rem', color: 'var(--text-muted)' }}>
+              Punctuality rate
             </span>
             <CheckCircle size={14} color="var(--green)" />
           </div>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginTop: '6px' }}>
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '1.4rem', fontWeight: 700, color: 'var(--green)' }}>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '1.4rem', fontWeight: 600, color: 'var(--green)' }}>
               {totalTrains > 0 ? Math.round((onTimeTrains.length / totalTrains) * 100) : 100}%
             </span>
-            <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }}>SCHEDULE CONFORMANCE</span>
+            <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }}>schedule match</span>
           </div>
           <div style={{ marginTop: '8px' }}>
-            <Badge size="sm" variant="green">DISPATCH AUTO-SOLVE READY</Badge>
+            <Badge size="sm" variant="green" dot>Auto-optimizer ready</Badge>
           </div>
         </Panel>
       </div>
@@ -240,18 +240,18 @@ export default function DashboardPage() {
       {/* 2. Schematic Track Diagram (SVG Control Panel)            */}
       {/* ========================================================= */}
       <Panel
-        title="SCHEMATIC TRACK DIAGRAM"
+        title="Schematic track diagram"
         action={
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '0.72rem', fontFamily: 'var(--font-mono)' }}>
-              <span style={{ color: 'var(--amber)', fontWeight: 600 }}>Rajdhani</span>
-              <span style={{ color: 'var(--blue)', fontWeight: 600 }}>Express</span>
-              <span style={{ color: 'var(--green)', fontWeight: 600 }}>Passenger</span>
-              <span style={{ color: '#B37FEB', fontWeight: 600 }}>Freight</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '0.74rem', fontFamily: 'var(--font-mono)' }}>
+              <span style={{ color: 'var(--amber)', fontWeight: 500 }}>Rajdhani</span>
+              <span style={{ color: 'var(--blue)', fontWeight: 500 }}>Express</span>
+              <span style={{ color: 'var(--green)', fontWeight: 500 }}>Passenger</span>
+              <span style={{ color: '#B37FEB', fontWeight: 500 }}>Freight</span>
             </div>
             {selectedTrainId && (
               <Button size="sm" variant="secondary" onClick={() => setSelectedTrainId(null)}>
-                CLEAR SELECTION
+                Clear selection
               </Button>
             )}
           </div>
@@ -269,7 +269,7 @@ export default function DashboardPage() {
       {/* 3. Live Trains Fleet Table                                */}
       {/* ========================================================= */}
       <Panel
-        title="FLEET TELEMETRY"
+        title="Fleet telemetry"
         action={
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             {/* Search Input */}
@@ -284,10 +284,10 @@ export default function DashboardPage() {
                   backgroundColor: 'var(--bg)',
                   border: '1px solid var(--border)',
                   color: 'var(--text)',
-                  fontSize: '0.72rem',
-                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.74rem',
+                  fontFamily: 'var(--font-sans)',
                   padding: '4px 8px 4px 26px',
-                  borderRadius: 'var(--radius-sharp)',
+                  borderRadius: 'var(--radius-control)',
                   outline: 'none',
                   width: '160px',
                 }}
@@ -302,18 +302,18 @@ export default function DashboardPage() {
                 backgroundColor: 'var(--bg)',
                 border: '1px solid var(--border)',
                 color: 'var(--text)',
-                fontSize: '0.72rem',
-                fontFamily: 'var(--font-mono)',
+                fontSize: '0.74rem',
+                fontFamily: 'var(--font-sans)',
                 padding: '4px 8px',
-                borderRadius: 'var(--radius-sharp)',
+                borderRadius: 'var(--radius-control)',
                 outline: 'none',
               }}
             >
-              <option value="ALL">ALL CLASSES</option>
-              <option value="Rajdhani">RAJDHANI</option>
-              <option value="Express">EXPRESS</option>
-              <option value="Passenger">PASSENGER</option>
-              <option value="Freight">FREIGHT</option>
+              <option value="ALL">All classes</option>
+              <option value="Rajdhani">Rajdhani</option>
+              <option value="Express">Express</option>
+              <option value="Passenger">Passenger</option>
+              <option value="Freight">Freight</option>
             </select>
           </div>
         }
@@ -335,6 +335,9 @@ export default function DashboardPage() {
                   backgroundColor: 'var(--subtle-bg)',
                   color: 'var(--text-muted)',
                   textAlign: 'left',
+                  fontSize: '0.72rem',
+                  fontFamily: 'var(--font-sans)',
+                  fontWeight: 500,
                 }}
               >
                 <th
@@ -345,10 +348,10 @@ export default function DashboardPage() {
                   }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                    TRAIN NUMBER <ArrowUpDown size={11} />
+                    Train <ArrowUpDown size={11} />
                   </div>
                 </th>
-                <th style={{ padding: '8px 14px' }}>NAME</th>
+                <th style={{ padding: '8px 14px' }}>Name</th>
                 <th
                   style={{ padding: '8px 14px', cursor: 'pointer' }}
                   onClick={() => {
@@ -357,12 +360,12 @@ export default function DashboardPage() {
                   }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                    PRIORITY <ArrowUpDown size={11} />
+                    Priority <ArrowUpDown size={11} />
                   </div>
                 </th>
-                <th style={{ padding: '8px 14px' }}>DIR</th>
-                <th style={{ padding: '8px 14px' }}>CURRENT RESOURCE</th>
-                <th style={{ padding: '8px 14px' }}>SPEED</th>
+                <th style={{ padding: '8px 14px' }}>Direction</th>
+                <th style={{ padding: '8px 14px' }}>Current resource</th>
+                <th style={{ padding: '8px 14px' }}>Speed</th>
                 <th
                   style={{ padding: '8px 14px', cursor: 'pointer' }}
                   onClick={() => {
@@ -371,10 +374,10 @@ export default function DashboardPage() {
                   }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                    DELAY <ArrowUpDown size={11} />
+                    Delay <ArrowUpDown size={11} />
                   </div>
                 </th>
-                <th style={{ padding: '8px 14px' }}>STATUS</th>
+                <th style={{ padding: '8px 14px' }}>Status</th>
               </tr>
             </thead>
             <tbody>

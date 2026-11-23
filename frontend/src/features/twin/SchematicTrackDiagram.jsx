@@ -107,7 +107,7 @@ export function SchematicTrackDiagram({ trains = [], conflicts = [], selectedTra
       case 'Passenger':
         return 'var(--green)';
       case 'Freight':
-        return '#B37FEB'; // Distinct purple accent for heavy freight
+        return 'var(--slate)';
       default:
         return 'var(--text-muted)';
     }
@@ -283,28 +283,27 @@ export function SchematicTrackDiagram({ trains = [], conflicts = [], selectedTra
                 onMouseEnter={() => setHoveredTrain(train)}
                 onMouseLeave={() => setHoveredTrain(null)}
               >
-                {/* Conflict Alert Halo */}
+                {/* Conflict Alert Indicator */}
                 {isConflicted && (
                   <circle
                     cx="0"
                     cy="0"
-                    r="12"
+                    r="13"
                     fill="none"
                     stroke="var(--red)"
                     strokeWidth="1.5"
-                    strokeDasharray="2 2"
-                    filter="url(#glow-red)"
+                    strokeDasharray="3 2"
                   />
                 )}
 
-                {/* Train Marker Body - Soft rounded edges */}
+                {/* Train Marker Body */}
                 <rect
                   x="-9"
                   y="-9"
                   width="18"
                   height="18"
-                  rx="4"
-                  fill={isSelected ? 'var(--text)' : '#0F172A'}
+                  rx="3"
+                  fill={isSelected ? 'var(--text)' : 'var(--panel-active)'}
                   stroke={isSelected ? 'var(--amber)' : isConflicted ? 'var(--red)' : color}
                   strokeWidth={isSelected ? '2' : '1.5'}
                 />
